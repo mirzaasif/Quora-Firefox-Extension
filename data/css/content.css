@@ -17,29 +17,29 @@
 	max-height:300px;
 	overflow:auto;
 	top:200px;
-	font-family: "Helvetica Neue",Helvetica,Arial,default;
-	background-color: #F9F9F9;
-	border-radius: 10px;
-	border: 1px solid #A7A7A7;
-	padding: 10px;
-	font-size:12px;
+	font-family: "Helvetica Neue",Helvetica,Arial,default !important;
+	background-color: #F9F9F9 !important;
+	border-radius: 10px !important;
+	border: 1px solid #A7A7A7 !important;
+	padding: 10px !important;
+	font-size:12px !important;
 	z-index: 999;
 }
 
 .charm_quora .charm_quora_title
 {
-	padding-bottom: 5px;
-	border-bottom: 1px solid #C7C7C7;
+	padding-bottom: 5px !important;
+	border-bottom: 1px solid #C7C7C7 !important;
 }
 
 .charm_quora .charm_result
 {
-	padding: 5px 0px;
+	padding: 5px 0px !important;
 }
 
 .charm_quora .charm_result .charm_result_item
 {
-	padding-bottom: 4px;
+	padding-bottom: 4px !important;
 }
 
 .charm_quora .charm_result_item
@@ -49,28 +49,28 @@
 
 .charm_quora .charm_result_item:hover
 {
-	text-decoration: underline;
+	text-decoration: underline !important;
 }
 
 .charm_quora .charm_result_item
 {
-	color: #19558D;
-	font-weight:normal;
-	text-decoration:none;
+	color: #19558D !important;
+	font-weight:normal !important;
+	text-decoration:none !important;
 }
 
 .charm_quora .charm_result_item
 {
-	color: #19558D;	
+	color: #19558D !important;
 }
 
 .charm_quora .charm_quora_link
 {
-	font-size:12px;
-	font-weight:normal;
-	text-decoration:none;
-	color: #538DC2;
-	display:inline;
+	font-size:12px !important;
+	font-weight:normal !important;
+	text-decoration:none !important;;
+	color: #538DC2 !important;
+	display:inline !important;
 }
 
 .charm_quora .charm_quora_link_alt
@@ -84,19 +84,19 @@
 
 .charm_quora_link::after, .charm_quora_link_alt::after  
 {
-	content: "";
+	content: "" !important;
 }
 
 .charm_quora .charm_quora_link:hover
 {
-	text-decoration: underline;
-	color: #19558D;
+	text-decoration: underline !important;
+	color: #19558D !important;
 }
 
 .charm_quora .charm_quora_link_alt:hover
 {
-	color: #538DC2;
-	text-decoration: underline;	
+	color: #538DC2 !important;
+	text-decoration: underline !important;	
 }
 
 .charm_quora #charm_set

@@ -10,6 +10,19 @@
 		<script>
 			addon.port.on("update", function (number)
 			{
+				prev = parseInt($(".count").text());
+				$(".count").text(number.toString());
+				if(number > prev)
+				{
+					$(".count").fadeIn("fast").delay(1500).fadeOut("slow").delay(500).fadeIn("fast").delay(1500).fadeOut("fast").delay(500).fadeIn("fast").delay(1500).fadeOut("fast").delay(500).fadeIn("fast");
+				}else if (number > 0)
+				{
+					$(".count").css("display", "block");
+				}else
+				{
+					$(".count").css("display", "none");
+				}
+				/*
 				$(".count").text(number.toString());
 				if(number > 0)
 				{
@@ -18,6 +31,7 @@
 				{
 					$(".count").css("display", "none");
 				}		
+				*/
 			});
 		</script>
 	</body>

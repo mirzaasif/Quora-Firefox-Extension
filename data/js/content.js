@@ -9,12 +9,19 @@ function onLoad()
 {	
 	self.port.on("load", function(data)
 		{
+			
+			if(window.location != window.parent.location)
+			{
+				return; 
+			}
+			
 			$(document).ready(function() {
 				
 				$('head').append('<link rel="stylesheet" href="'+data.file+'" type="text/css" />');
 			
-			//$("body").append("<div class='charm_quora' id='charm_quora'><div class='title'>Recommended Boards on Quora</div><div id='result' class='result'></div><div style='text-align:center; padding-bottom:4px;'><img src='"+closeIcon+"' width='16' title='Hide' style='cursor:pointer;' id='charm_hide'/>&nbsp;&nbsp;<img src='"+blockIcon+"' width='16' title='Never show recommendations on this site.' style='cursor:pointer;' id='charm_block'/></div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
-				$("body").append("<div class='charm_quora' id='charm_quora'><div class='charm_quora_title'>Recommended Boards on Quora</div><div id='charm_result' class='charm_result'></div><div style='text-align:center; padding-bottom:4px;'><label id='charm_post' class='charm_quora_link' style=' cursor:pointer;' title='Post this page to a board on Quora'>Post</label><span style='color:#CCC;'> • </span><label id='charm_hide' class='charm_quora_link_alt' style=' cursor:pointer;' title='Hide this recommendation'>Hide</label></div><div style='text-align:center; padding-bottom:4px; cursor:pointer; display:block;' class='charm_quora_link_alt' id='charm_block' title='Add the domain for this page into the recommendation block list'>Block for this site</div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
+				//$("body").append("<div class='charm_quora' id='charm_quora'><div class='title'>Recommended Boards on Quora</div><div id='result' class='result'></div><div style='text-align:center; padding-bottom:4px;'><img src='"+closeIcon+"' width='16' title='Hide' style='cursor:pointer;' id='charm_hide'/>&nbsp;&nbsp;<img src='"+blockIcon+"' width='16' title='Never show recommendations on this site.' style='cursor:pointer;' id='charm_block'/></div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
+				//$("body").append("<div class='charm_quora' id='charm_quora'><div class='charm_quora_title'>Recommended Boards on Quora</div><div id='charm_result' class='charm_result'></div><div style='text-align:center; padding-bottom:4px;'><label id='charm_post' class='charm_quora_link' style=' cursor:pointer;' title='Post this page to a board on Quora'>Post</label><span style='color:#CCC;'> • </span><label id='charm_hide' class='charm_quora_link_alt' style=' cursor:pointer;' title='Hide this recommendation'>Hide</label></div><div style='text-align:center; padding-bottom:4px; cursor:pointer; display:block;' class='charm_quora_link_alt' id='charm_block' title='Add the domain for this page into the recommendation block list'>Block for this site</div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
+				$("body").append("<div class='charm_quora' id='charm_quora'><div class='charm_quora_title'>Recommended Boards on Quora</div><div id='charm_result' class='charm_result'></div><div style='text-align:center; padding-bottom:4px;'><label id='charm_post' class='charm_quora_link' style='cursor:pointer; float:none;' title='Post this page to a board on Quora'>Post</label><span style='color:#CCC;'> • </span><label id='charm_hide' class='charm_quora_link_alt' style='cursor:pointer; float:none;' title='Hide this recommendation'>Hide</label></div><div style='text-align:center; padding-bottom:4px; cursor:pointer; display:block;' class='charm_quora_link_alt' id='charm_block' title='Add the domain for this page into the recommendation block list'>Block for this site</div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
 				left = (parseInt($(window).width())-150);
 				$("#charm_quora").css("left", left);
 				$("#charm_block").click(blockSite);
