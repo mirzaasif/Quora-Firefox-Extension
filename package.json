@@ -1,0 +1,10 @@
+{
+    "name": "charm-for-quora", 
+    "license": "MIT", 
+    "author": "Mirza Asif", 
+    "version": "0.1", 
+    "fullName": "Charm for Quora", 
+    "id": "jid1-IZnrJfB3Z3BREA", 
+    "description": "Quora extension for Firefox",
+    "homepage" : "http://thirdeye.ibtgames.com/charm-for-quora/"   
+}

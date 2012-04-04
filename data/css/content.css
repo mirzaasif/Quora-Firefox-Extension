@@ -1,0 +1,106 @@
+.charm_quora *
+{
+	line-height:16px;
+	color: #333;
+	font-family: "Helvetica Neue",Helvetica,Arial,default;
+	font-weight:normal;
+	text-decoration:none;
+	padding:0px;
+	margin:0px;
+	background-color: #F9F9F9;
+}
+.charm_quora
+{
+	width:120px;
+	position:fixed;
+	display:block;
+	max-height:300px;
+	overflow:auto;
+	top:200px;
+	font-family: "Helvetica Neue",Helvetica,Arial,default;
+	background-color: #F9F9F9;
+	border-radius: 10px;
+	border: 1px solid #A7A7A7;
+	padding: 10px;
+	font-size:12px;
+	z-index: 999;
+}
+
+.charm_quora .charm_quora_title
+{
+	padding-bottom: 5px;
+	border-bottom: 1px solid #C7C7C7;
+}
+
+.charm_quora .charm_result
+{
+	padding: 5px 0px;
+}
+
+.charm_quora .charm_result .charm_result_item
+{
+	padding-bottom: 4px;
+}
+
+.charm_quora .charm_result_item
+{
+	cursor: pointer;
+}
+
+.charm_quora .charm_result_item:hover
+{
+	text-decoration: underline;
+}
+
+.charm_quora .charm_result_item
+{
+	color: #19558D;
+	font-weight:normal;
+	text-decoration:none;
+}
+
+.charm_quora .charm_result_item
+{
+	color: #19558D;	
+}
+
+.charm_quora .charm_quora_link
+{
+	font-size:12px;
+	font-weight:normal;
+	text-decoration:none;
+	color: #538DC2;
+	display:inline;
+}
+
+.charm_quora .charm_quora_link_alt
+{
+	font-size:12px;
+	font-weight:normal;
+	text-decoration:none;
+	color: #AAA;
+	display:inline;
+}
+
+.charm_quora_link::after, .charm_quora_link_alt::after  
+{
+	content: "";
+}
+
+.charm_quora .charm_quora_link:hover
+{
+	text-decoration: underline;
+	color: #19558D;
+}
+
+.charm_quora .charm_quora_link_alt:hover
+{
+	color: #538DC2;
+	text-decoration: underline;	
+}
+
+.charm_quora #charm_set
+{
+	height:23px;
+	width:120px;
+}

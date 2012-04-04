@@ -1,0 +1,22 @@
+*
+{
+	padding: 0px;
+	margin: 0px;
+	color: #000;
+}
+
+.count
+{
+    background: none repeat scroll 0 0 #A82400;
+    font-size: 0.7em;
+    line-height: 0.7em;
+    margin: 0;
+    padding: 3px 5px;
+    padding-top:4px;
+    position: absolute;
+    left: 20px;
+    top: 0px;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFF;
+    display:none;
+}

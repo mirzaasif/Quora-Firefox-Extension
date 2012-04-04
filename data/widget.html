@@ -1,0 +1,24 @@
+<html>
+	<header>
+		<link href="css/widget.css" media="screen" rel="stylesheet" type="text/css" />	
+		<script src="js/lib/jquery-1.7.1.min.js"></script>
+		<script src="js/widget.js"></script>
+	</header>
+	<body>
+		<img src="images/quora_16.png"/>
+		<label class="count" id="count">0</label>
+		<script>
+			addon.port.on("update", function (number)
+			{
+				$(".count").text(number.toString());
+				if(number > 0)
+				{
+					$(".count").css("display", "block");	
+				}else
+				{
+					$(".count").css("display", "none");
+				}		
+			});
+		</script>
+	</body>
+</html>
