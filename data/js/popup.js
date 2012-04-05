@@ -19,6 +19,83 @@ addon.port.on("post-page-pop", function(link)
 	window.open(link,'_blank','toolbar=0,scrollbars=no,resizable=1,status=1,width=430,height=400');
 });
 
+addon.port.on("recommendation-success", function(data)
+{
+	recommendationResult(data);
+});
+
+function recommendationResult(data)
+{
+	$("#charm_hidden_result").html(data.html);
+  	var responseData = new Object();
+  	responseData.board = [];
+  	responseData.topic = [];
+  	responseData.question = [];
+  	responseData.profile = [];
+  	responseData.all = [];
+  	
+  	$("#charm_hidden_result a").each(
+  		function()
+  		{
+  			href = $(this).attr("href");
+  			text = $(this).find('.text').text();
+			des = $(this).find('.desc').text();
+			if(des == "")
+			{
+				des = $(this).find('.faded').text();
+				index = text.lastIndexOf(des);
+				if(index > -1)
+				{
+					text = text.substr(0, index - 1);
+				}
+			}
+			img = $(this).find('img');
+			if(img.length > 0)
+			{
+				img = img.attr("src");
+			}else
+			{
+				img = null;
+			}
+			
+			if(href != "" && href != "#")
+			{
+				obj = {"url": href, "title": text, "des": des, "img": img};
+			
+				type = "Etc";
+				if($(this).parent().hasClass("board"))
+				{
+					responseData.board[responseData.board.length] = obj;
+					type = "Board";
+				}else if($(this).parent().hasClass("topic"))
+				{
+					responseData.topic[responseData.topic.length] = obj;
+					type = "Topic";
+				}else if($(this).parent().hasClass("question"))
+				{
+					responseData.question[responseData.question.length] = obj;
+					type = "Question";
+				}else if($(this).parent().hasClass("profile"))
+				{
+					responseData.profile[responseData.profile.length] = obj;
+					type = "Profile";
+				}
+				
+				if(des == "")
+				{
+					des = type;
+				}
+				
+				obj = {"url": href, "title": text, "des": des, "img": img, "type": type};
+				
+				responseData.all[responseData.all.length] = obj;	
+			}	
+  		}
+  	);
+
+    handleRecommendationData(responseData);	
+}
+
 
 function postThisPage()
 {
@@ -252,13 +329,9 @@ function handleRecommendationData(response)
 }
 function showRecommendationLink()
 {
+	addon.port.emit("recommedation");
 	//safari.extension.globalPage.contentWindow.pop_recommendation(handleRecommendationData);
 }
-
-safari.application.addEventListener("popover", function()
-{
-	onLoad();
-}, true);
 
 function onLoad()
 {

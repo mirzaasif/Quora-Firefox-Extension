@@ -22,6 +22,8 @@ function onLoad()
 				//$("body").append("<div class='charm_quora' id='charm_quora'><div class='title'>Recommended Boards on Quora</div><div id='result' class='result'></div><div style='text-align:center; padding-bottom:4px;'><img src='"+closeIcon+"' width='16' title='Hide' style='cursor:pointer;' id='charm_hide'/>&nbsp;&nbsp;<img src='"+blockIcon+"' width='16' title='Never show recommendations on this site.' style='cursor:pointer;' id='charm_block'/></div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
 				//$("body").append("<div class='charm_quora' id='charm_quora'><div class='charm_quora_title'>Recommended Boards on Quora</div><div id='charm_result' class='charm_result'></div><div style='text-align:center; padding-bottom:4px;'><label id='charm_post' class='charm_quora_link' style=' cursor:pointer;' title='Post this page to a board on Quora'>Post</label><span style='color:#CCC;'> • </span><label id='charm_hide' class='charm_quora_link_alt' style=' cursor:pointer;' title='Hide this recommendation'>Hide</label></div><div style='text-align:center; padding-bottom:4px; cursor:pointer; display:block;' class='charm_quora_link_alt' id='charm_block' title='Add the domain for this page into the recommendation block list'>Block for this site</div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
 				$("body").append("<div class='charm_quora' id='charm_quora'><div class='charm_quora_title'>Recommended Boards on Quora</div><div id='charm_result' class='charm_result'></div><div style='text-align:center; padding-bottom:4px;'><label id='charm_post' class='charm_quora_link' style='cursor:pointer; float:none;' title='Post this page to a board on Quora'>Post</label><span style='color:#CCC;'> • </span><label id='charm_hide' class='charm_quora_link_alt' style='cursor:pointer; float:none;' title='Hide this recommendation'>Hide</label></div><div style='text-align:center; padding-bottom:4px; cursor:pointer; display:block;' class='charm_quora_link_alt' id='charm_block' title='Add the domain for this page into the recommendation block list'>Block for this site</div><div style='text-align:center; color:#666; font-size:10px; clear:both;'>Charm for Quora</div></div>");
+				$("body").append("<div class='charm_hidden_result' id='charm_hidden_result'></div>");
+				
 				left = (parseInt($(window).width())-150);
 				$("#charm_quora").css("left", left);
 				$("#charm_block").click(blockSite);
@@ -49,28 +51,98 @@ function onLoad()
 				
 				if(!urlBlock)
 				{
-					self.port.emit("recommendation", pageTitle);
-					/*
-					message = {"data" : "recommendation", "title" : pageTitle};
-					sendMessage(message, function(response)
-						{
-							if(settings.setting1)
-							{
-								handleBoardRecommendationResponse(response);
-								getBoardRecommendationAdvaced(pageTitle);	
-							}
-						}
-					);
-					*/
+					if(settings.setting1)
+					{
+						self.port.emit("recommendation", pageTitle);
+						getBoardRecommendationAdvaced(pageTitle);
+					}
 				}
 			}); // Jquery ready
-		}
-	); // self port on load
+			self.port.on("recommendation-success", function(data)
+			{
+				recommendationResult(data);	
+			});
+			
+			self.port.on("get-title", function()
+			{
+				if(!urlBlock)
+				{
+					self.port.emit("get-title-success", pageTitle);	
+				}
+			});
+	}); // self port on load
 	
-	self.port.on("recommendation-success", function(data)
-	{
-		alert(data.html);	
-	});
+}
+
+function recommendationResult(data)
+{
+	$("#charm_hidden_result").html(data.html);
+  	var responseData = new Object();
+  	responseData.board = [];
+  	responseData.topic = [];
+  	responseData.question = [];
+  	responseData.profile = [];
+  	responseData.all = [];
+  	
+  	$("#charm_hidden_result a").each(
+  		function()
+  		{
+  			href = $(this).attr("href");
+  			text = $(this).find('.text').text();
+			des = $(this).find('.desc').text();
+			if(des == "")
+			{
+				des = $(this).find('.faded').text();
+				index = text.lastIndexOf(des);
+				if(index > -1)
+				{
+					text = text.substr(0, index - 1);
+				}
+			}
+			img = $(this).find('img');
+			if(img.length > 0)
+			{
+				img = img.attr("src");
+			}else
+			{
+				img = null;
+			}
+			
+			if(href != "" && href != "#")
+			{
+				obj = {"url": href, "title": text, "des": des, "img": img};
+			
+				type = "Etc";
+				if($(this).parent().hasClass("board"))
+				{
+					responseData.board[responseData.board.length] = obj;
+					type = "Board";
+				}else if($(this).parent().hasClass("topic"))
+				{
+					responseData.topic[responseData.topic.length] = obj;
+					type = "Topic";
+				}else if($(this).parent().hasClass("question"))
+				{
+					responseData.question[responseData.question.length] = obj;
+					type = "Question";
+				}else if($(this).parent().hasClass("profile"))
+				{
+					responseData.profile[responseData.profile.length] = obj;
+					type = "Profile";
+				}
+				
+				if(des == "")
+				{
+					des = type;
+				}
+				
+				obj = {"url": href, "title": text, "des": des, "img": img, "type": type};
+				
+				responseData.all[responseData.all.length] = obj;	
+			}	
+  		}
+  	);
+    handleBoardRecommendationResponse(responseData);	
 }
 
 function handleBoardRecommendationResponse(response)
@@ -111,7 +183,7 @@ function postQuora(event)
 */
 function postQuora()
 {
-	sendMessage({"data":"post"}, function(){});	
+	self.port.emit("post-page");	
 }
 
 function getBoardRecommendationAdvaced(title)
@@ -123,12 +195,7 @@ function getBoardRecommendationAdvaced(title)
 		var word = words[i].trim();
 		if(!isStopWord(word))
 		{
-			var message = {"data" : "recommendation", "title" : word.toString()};
-			sendMessage(message, function(response)
-				{
-					handleBoardRecommendationResponse(response);	
-				}
-			);		
+			self.port.emit("recommendation",  word.toString());
 		}
 	}
 }
@@ -164,15 +231,13 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 function blockSite()
 {
 	domain = location.hostname;
-	sendMessage({"data":"get_settings"}, function(response)
-		{
-			settings = response.settings;
-			settings.block_url = domain + "\n" + settings.block_url;
-			sendMessage({"data":"save_settings", "settings" : settings}, function(){});
-			$(".charm_quora #charm_result").append(domain+" has been blocked. You can undo this action from settings.");
-			setTimeout("hide()", 5000);		
-		} 
-	);	
+	self.port.emit("block-domain", domain);
+	
+	$(".charm_quora #charm_result").append(domain+" has been blocked. You can undo this action from settings.");
+	setTimeout(function()
+	{
+		hide();	
+	}, 5000);
 }
 
 function hide()

@@ -259,3 +259,8 @@ body
 	text-decoration: underline;
 	color: #19558D;
 }
+
+.charm_hidden_result
+{
+	display:none;
+}

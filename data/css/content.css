@@ -9,11 +9,15 @@
 	margin:0px;
 	background-color: #F9F9F9;
 }
+.charm_hidden_result
+{
+	display:none;
+}
 .charm_quora
 {
 	width:120px;
 	position:fixed;
-	display:block;
+	display:none;
 	max-height:300px;
 	overflow:auto;
 	top:200px;

@@ -2,9 +2,9 @@
     "name": "charm-for-quora", 
     "license": "MIT", 
     "author": "Mirza Asif", 
-    "version": "0.1", 
+    "version": "1.0", 
     "fullName": "Charm for Quora", 
     "id": "jid1-IZnrJfB3Z3BREA", 
-    "description": "Quora extension for Firefox",
+    "description": "Charm for Quora shows recommended content and boards. You can post, search, view notifications directly from the extension.",
     "homepage" : "http://thirdeye.ibtgames.com/charm-for-quora/"   
 }
